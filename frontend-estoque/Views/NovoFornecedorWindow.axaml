@@ -1,0 +1,23 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:GerenciamentoEstoque.ViewModels"
+        x:Class="GerenciamentoEstoque.Views.NovoFornecedorWindow"
+        x:DataType="vm:FornecedoresViewModel"
+        Width="380" SizeToContent="Height" CanResize="False"
+        WindowStartupLocation="CenterOwner"
+        Title="Novo fornecedor">
+    <StackPanel Margin="20" Spacing="6">
+        <TextBlock Text="Nome" />
+        <TextBox Text="{Binding NovoNome}" />
+        <TextBlock Text="CNPJ" />
+        <TextBox Text="{Binding NovoCnpj}" />
+        <TextBlock Text="Telefone" />
+        <TextBox Text="{Binding NovoTelefone}" />
+        <TextBlock Text="Email" />
+        <TextBox Text="{Binding NovoEmail}" />
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8" Margin="0,16,0,0">
+            <Button Content="Cancelar" Click="OnCancelClick" />
+            <Button Content="Salvar" Click="OnSalvarClick" />
+        </StackPanel>
+    </StackPanel>
+</Window>

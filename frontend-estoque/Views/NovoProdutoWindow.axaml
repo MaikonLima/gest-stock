@@ -1,0 +1,48 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:GerenciamentoEstoque.ViewModels"
+        xmlns:models="using:GerenciamentoEstoque.Models"
+        x:Class="GerenciamentoEstoque.Views.NovoProdutoWindow"
+        x:DataType="vm:ProdutosViewModel"
+        Width="420" SizeToContent="Height" CanResize="False"
+        WindowStartupLocation="CenterOwner"
+        Title="Novo produto">
+    <StackPanel Margin="20" Spacing="6">
+        <TextBlock Text="Nome" />
+        <TextBox Text="{Binding NovoNome}" />
+        <TextBlock Text="SKU" />
+        <TextBox Text="{Binding NovoSku}" />
+        <TextBlock Text="Descrição" />
+        <TextBox Text="{Binding NovoDescricao}" />
+        <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+            <StackPanel Grid.Column="0" Spacing="6">
+                <TextBlock Text="Preço" />
+                <TextBox Text="{Binding NovoPreco}" />
+            </StackPanel>
+            <StackPanel Grid.Column="1" Spacing="6">
+                <TextBlock Text="Quantidade" />
+                <TextBox Text="{Binding NovaQuantidade}" />
+            </StackPanel>
+        </Grid>
+        <TextBlock Text="Categoria" />
+        <ComboBox HorizontalAlignment="Stretch" ItemsSource="{Binding Categorias}" SelectedItem="{Binding SelectedCategoria}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate x:DataType="models:Categoria">
+                    <TextBlock Text="{Binding Nome}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <TextBlock Text="Fornecedor" />
+        <ComboBox HorizontalAlignment="Stretch" ItemsSource="{Binding Fornecedores}" SelectedItem="{Binding SelectedFornecedor}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate x:DataType="models:Fornecedor">
+                    <TextBlock Text="{Binding Nome}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8" Margin="0,16,0,0">
+            <Button Content="Cancelar" Click="OnCancelClick" />
+            <Button Content="Salvar" Click="OnSalvarClick" />
+        </StackPanel>
+    </StackPanel>
+</Window>

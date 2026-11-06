@@ -1,0 +1,123 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:GerenciamentoEstoque.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="650"
+        x:Class="GerenciamentoEstoque.Views.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Width="1000" Height="650"
+        Background="White"
+        Title="Gerenciamento de Estoque">
+
+    <Design.DataContext>
+        <vm:MainViewModel />
+    </Design.DataContext>
+
+    <TabControl Background="White">
+        <TabControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" />
+            </ItemsPanelTemplate>
+        </TabControl.ItemsPanel>
+
+        <TabItem DataContext="{Binding CategoriasViewModel}">
+            <TabItem.Header>
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <TextBlock Text="🏷️" />
+                    <TextBlock Text="Categorias" />
+                </StackPanel>
+            </TabItem.Header>
+            <DockPanel Margin="16" x:DataType="vm:CategoriasViewModel">
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="8" Margin="0,0,0,12">
+                    <Button Content="Nova categoria" Command="{Binding OpenNewCommand}" />
+                    <Button Content="Atualizar" Command="{Binding LoadCommand}" />
+                    <Button Content="Excluir selecionada" Command="{Binding DeleteCommand}" />
+                </StackPanel>
+                <DataGrid ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}"
+                          AutoGenerateColumns="False" IsReadOnly="True" GridLinesVisibility="Horizontal">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Nome" Binding="{Binding Nome}" Width="*" />
+                        <DataGridTextColumn Header="Criado em" Binding="{Binding CreatedAt}" Width="200" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+        </TabItem>
+
+        <TabItem DataContext="{Binding FornecedoresViewModel}">
+            <TabItem.Header>
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <TextBlock Text="🏭" />
+                    <TextBlock Text="Fornecedores" />
+                </StackPanel>
+            </TabItem.Header>
+            <DockPanel Margin="16" x:DataType="vm:FornecedoresViewModel">
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="8" Margin="0,0,0,12">
+                    <Button Content="Novo fornecedor" Command="{Binding OpenNewCommand}" />
+                    <Button Content="Atualizar" Command="{Binding LoadCommand}" />
+                    <Button Content="Excluir selecionado" Command="{Binding DeleteCommand}" />
+                </StackPanel>
+                <DataGrid ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}"
+                          AutoGenerateColumns="False" IsReadOnly="True" GridLinesVisibility="Horizontal">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Nome" Binding="{Binding Nome}" Width="*" />
+                        <DataGridTextColumn Header="CNPJ" Binding="{Binding Cnpj}" Width="150" />
+                        <DataGridTextColumn Header="Telefone" Binding="{Binding Telefone}" Width="130" />
+                        <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="200" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+        </TabItem>
+
+        <TabItem DataContext="{Binding ProdutosViewModel}">
+            <TabItem.Header>
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <TextBlock Text="📦" />
+                    <TextBlock Text="Produtos" />
+                </StackPanel>
+            </TabItem.Header>
+            <DockPanel Margin="16" x:DataType="vm:ProdutosViewModel">
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="8" Margin="0,0,0,12">
+                    <Button Content="Novo produto" Command="{Binding OpenNewCommand}" />
+                    <Button Content="Atualizar" Command="{Binding LoadCommand}" />
+                    <Button Content="Excluir selecionado" Command="{Binding DeleteCommand}" />
+                </StackPanel>
+                <DataGrid ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}"
+                          AutoGenerateColumns="False" IsReadOnly="True" GridLinesVisibility="Horizontal">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Nome" Binding="{Binding Nome}" Width="*" />
+                        <DataGridTextColumn Header="SKU" Binding="{Binding Sku}" Width="100" />
+                        <DataGridTextColumn Header="Preço" Binding="{Binding Preco}" Width="100" />
+                        <DataGridTextColumn Header="Quantidade" Binding="{Binding Quantidade}" Width="100" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+        </TabItem>
+
+        <TabItem DataContext="{Binding MovimentacoesViewModel}">
+            <TabItem.Header>
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <TextBlock Text="🔄" />
+                    <TextBlock Text="Movimentações" />
+                </StackPanel>
+            </TabItem.Header>
+            <DockPanel Margin="16" x:DataType="vm:MovimentacoesViewModel">
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="8" Margin="0,0,0,12">
+                    <Button Content="Nova movimentação" Command="{Binding OpenNewCommand}" />
+                    <Button Content="Atualizar" Command="{Binding LoadCommand}" />
+                </StackPanel>
+                <DataGrid ItemsSource="{Binding Items}" AutoGenerateColumns="False" IsReadOnly="True" GridLinesVisibility="Horizontal">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Produto Id" Binding="{Binding ProdutoId}" Width="*" />
+                        <DataGridTextColumn Header="Tipo" Binding="{Binding Tipo}" Width="100" />
+                        <DataGridTextColumn Header="Quantidade" Binding="{Binding Quantidade}" Width="100" />
+                        <DataGridTextColumn Header="Motivo" Binding="{Binding Motivo}" Width="200" />
+                        <DataGridTextColumn Header="Data" Binding="{Binding CreatedAt}" Width="160" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+        </TabItem>
+    </TabControl>
+
+</Window>

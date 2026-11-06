@@ -1,0 +1,74 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Categoria {
+  id        String    @id @default(uuid())
+  nome      String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  produtos  Produto[]
+
+  @@map("categorias")
+}
+
+model Fornecedor {
+  id        String    @id @default(uuid())
+  nome      String
+  cnpj      String?   @unique
+  telefone  String?
+  email     String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  produtos  Produto[]
+
+  @@map("fornecedores")
+}
+
+model Produto {
+  id            String                @id @default(uuid())
+  nome          String
+  sku           String                @unique
+  descricao     String?
+  preco         Decimal               @db.Decimal(10, 2)
+  quantidade    Int                   @default(0)
+  categoria     Categoria?            @relation(fields: [categoriaId], references: [id])
+  categoriaId   String?
+  fornecedor    Fornecedor?           @relation(fields: [fornecedorId], references: [id])
+  fornecedorId  String?
+  movimentacoes MovimentacaoEstoque[]
+  createdAt     DateTime              @default(now())
+  updatedAt     DateTime              @updatedAt
+
+  @@index([categoriaId])
+  @@index([fornecedorId])
+  @@map("produtos")
+}
+
+enum TipoMovimentacao {
+  ENTRADA
+  SAIDA
+}
+
+model MovimentacaoEstoque {
+  id         String           @id @default(uuid())
+  produto    Produto          @relation(fields: [produtoId], references: [id], onDelete: Cascade)
+  produtoId  String
+  tipo       TipoMovimentacao
+  quantidade Int
+  motivo     String?
+  createdAt  DateTime         @default(now())
+
+  @@index([produtoId])
+  @@map("movimentacoes_estoque")
+}

@@ -1,0 +1,30 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:GerenciamentoEstoque.ViewModels"
+        xmlns:models="using:GerenciamentoEstoque.Models"
+        x:Class="GerenciamentoEstoque.Views.NovaMovimentacaoWindow"
+        x:DataType="vm:MovimentacoesViewModel"
+        Width="380" SizeToContent="Height" CanResize="False"
+        WindowStartupLocation="CenterOwner"
+        Title="Nova movimentação">
+    <StackPanel Margin="20" Spacing="6">
+        <TextBlock Text="Produto" />
+        <ComboBox HorizontalAlignment="Stretch" ItemsSource="{Binding Produtos}" SelectedItem="{Binding SelectedProduto}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate x:DataType="models:Produto">
+                    <TextBlock Text="{Binding Nome}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <TextBlock Text="Tipo" />
+        <ComboBox HorizontalAlignment="Stretch" ItemsSource="{Binding Tipos}" SelectedItem="{Binding SelectedTipo}" />
+        <TextBlock Text="Quantidade" />
+        <TextBox Text="{Binding NovaQuantidade}" />
+        <TextBlock Text="Motivo" />
+        <TextBox Text="{Binding NovoMotivo}" />
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8" Margin="0,16,0,0">
+            <Button Content="Cancelar" Click="OnCancelClick" />
+            <Button Content="Registrar" Click="OnSalvarClick" />
+        </StackPanel>
+    </StackPanel>
+</Window>
